@@ -4,6 +4,7 @@ import 'login_view.dart';
 import '../models/product_model.dart';
 import '../services/product_service.dart';
 import '../components/product_card.dart';
+import 'cart_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -68,23 +69,19 @@ class _HomeViewState extends State<HomeView> {
       ),
 
       appBar: AppBar(
-
+        automaticallyImplyLeading: false,
         title: const Text(
           "S-Katalog",
         ),
-
         centerTitle: true,
-
         actions: [
           IconButton(
             onPressed: logout,
             icon: const Icon(Icons.logout),
           ),
         ],
-
         backgroundColor:
         Colors.white,
-
         elevation: 0,
       ),
       
@@ -197,14 +194,19 @@ class _HomeViewState extends State<HomeView> {
         ],
 
         onTap: (index){
-
-          setState(() {
-
-            selectedIndex =
-                index;
-
-          });
-
+        setState(() {
+        selectedIndex = index;
+        });
+        if(index == 1){
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+        builder:
+        (context)=>
+        const CartView(),
+        ),
+        );
+        }
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../models/product_model.dart';
+import '../views/detail_view.dart';
 
 class ProductCard extends StatelessWidget {
 
@@ -19,7 +19,19 @@ class ProductCard extends StatelessWidget {
 
     return GestureDetector(
 
-      onTap: () {},
+      onTap: () {
+      Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder:
+      (context)=>
+      DetailView(
+      product:
+      product,
+      ),
+      ),
+      );
+      },
 
       child: Card(
 
@@ -49,15 +61,12 @@ class ProductCard extends StatelessWidget {
             children: [
 
               Expanded(
-
-                child:
-                Image.network(
-
-                  product.image,
-
-                  fit:
-                  BoxFit.contain,
-
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    product.image,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
 
