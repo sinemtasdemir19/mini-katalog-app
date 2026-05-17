@@ -66,19 +66,19 @@ https://wantapi.com/assets/banner.png
 
 ### Login Ekranı
 
-![Login](screenshots/login.png)
+<img src="screenshots/login.png" width="250">
 
 ### Home Ekranı
 
-![Home](screenshots/home.png)
+<img src="screenshots/home.png" width="250">
 
 ### Ürün Detay Ekranı
 
-![Detail](screenshots/detail.png)
+<img src="screenshots/detail.png" width="250">
 
 ### Sepet Ekranı
 
-![Cart](screenshots/cart.png)
+<img src="screenshots/cart.png" width="250">
 
 ## Kurulum
 
