@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -12,6 +14,13 @@ class _LoginViewState extends State<LoginView> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<void> saveLoginInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool("isLoggedIn", true);
+    await prefs.setString("email", emailController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +130,16 @@ class _LoginViewState extends State<LoginView> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              print(emailController.text);
+                              await saveLoginInfo();
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeView(),
+                                ),
+                              );
                             }
                           },
                           child: const Text(
