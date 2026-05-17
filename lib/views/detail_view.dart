@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/product_model.dart';
 import 'home_view.dart';
 import 'cart_view.dart';
+import '../data/cart_data.dart';
 
 class DetailView extends StatelessWidget {
   final ProductModel product;
@@ -89,9 +90,43 @@ class DetailView extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFB5A8C4),
+                onPressed: () {
+                  cartItems.add(
+                    product,
+                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(
+                    const SnackBar(
+                      content:
+                      Text(
+                        "Ürün sepete eklendi",
+                      ),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                    (states) {
+                      if (states.contains(WidgetState.pressed)) {
+                        return const Color(0xFF8F7AA8);
+                      }
+                      return const Color(0xFFB5A8C4);
+                    },
+                  ),
+                  elevation: WidgetStateProperty.resolveWith<double>(
+                    (states) {
+                      if (states.contains(WidgetState.pressed)) {
+                        return 2;
+                      }
+                      return 6;
+                    },
+                  ),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
                 ),
                 child: const Text(
                   "Sepete Ekle",

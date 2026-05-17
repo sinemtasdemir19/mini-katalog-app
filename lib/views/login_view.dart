@@ -124,10 +124,27 @@ class _LoginViewState extends State<LoginView> {
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFB5A8C4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                              (states) {
+                                if (states.contains(WidgetState.pressed)) {
+                                  return const Color(0xFF8F7AA8);
+                                }
+                                return const Color(0xFFB5A8C4);
+                              },
+                            ),
+                            elevation: WidgetStateProperty.resolveWith<double>(
+                              (states) {
+                                if (states.contains(WidgetState.pressed)) {
+                                  return 2;
+                                }
+                                return 6;
+                              },
+                            ),
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
                             ),
                           ),
                           onPressed: () async {
