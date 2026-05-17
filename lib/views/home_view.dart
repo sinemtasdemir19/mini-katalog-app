@@ -19,6 +19,8 @@ class _HomeViewState extends State<HomeView> {
 
   List<ProductModel> products = [];
 
+  List<ProductModel> filteredProducts = [];
+
   bool isLoading = true;
 
   final ProductService productService =
@@ -48,14 +50,20 @@ class _HomeViewState extends State<HomeView> {
   Future<void> loadProducts()
   async {
 
-    products =
-    await productService
-        .getProducts();
+    products = await productService.getProducts();
 
     setState(() {
-
+      filteredProducts = products;
       isLoading = false;
-
+    });
+  }
+  void searchProduct(String value) {
+    setState(() {
+      filteredProducts = products.where((product) {
+        return product.name.toLowerCase().contains(
+              value.toLowerCase(),
+            );
+      }).toList();
     });
   }
 
@@ -111,6 +119,7 @@ class _HomeViewState extends State<HomeView> {
               height: 20,
             ),
             TextField(
+              onChanged: searchProduct,
               decoration:
               InputDecoration(
                 hintText:
@@ -138,7 +147,7 @@ class _HomeViewState extends State<HomeView> {
               child:
               GridView.builder(
                 itemCount:
-                products.length,
+                filteredProducts.length,
                 gridDelegate:
                 const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -150,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
                 (context,index){
                   return ProductCard(
                     product:
-                    products[index],
+                    filteredProducts[index],
                   );
                 },
               ),
